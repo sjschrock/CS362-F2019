@@ -732,13 +732,12 @@ int mineEffect(int choice1, int choice2, struct gameState *state, int handPos, i
 
 int gainEstate(struct gameState *state, int currentPlayer)
 {
-    if (supplyCount(estate, state) > 0) {
-        gainCard(estate, state, 0, currentPlayer);
-
-        state->supplyCount[estate]--;//Decrement estates
-        if (supplyCount(estate, state) == 0) {
+	if (supplyCount(estate, state) > 0) {
+		gainCard(estate, state, 0, currentPlayer);
+	}
+    
+	if (supplyCount(estate, state) == 0) {
             isGameOver(state);
-        }
     }
 
     return 0;
@@ -772,6 +771,11 @@ int baronEffect(int choice1, struct gameState *state, int currentPlayer)
                 
                 card_not_discarded = 0;//Exit the loop
             }
+
+			else
+			{
+				p++; //next card
+			}
 
         }
     }
@@ -808,7 +812,7 @@ int minionEffect(int handPos, int currentPlayer, struct gameState *state, int ch
     {
         state->coins = state->coins + 3;
     }
-    else if (choice1)       //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+    else if (choice2)       //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
     {
         //discard hand
         while(numHandCards(state) > 0)
@@ -945,7 +949,7 @@ int ambassadorEffect(int handPos, int choice1, int choice2, int currentPlayer, s
     state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
     //each other player gains a copy of revealed card
-    for (i = 0; i <= state->numPlayers; i++)
+    for (i = 0; i < state->numPlayers; i++)
     {
         if (i != currentPlayer)
         {

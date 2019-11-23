@@ -4,6 +4,7 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
 	int numActions;
 	int numCoins;
 
-	printf("\n\nTesting tributeEffect():\n");
+	printf("\n\nTesting tributeCard():\n");
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
 	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
@@ -29,7 +30,7 @@ int main()
 	G.deck[nextPlayer][0] = feast;
 	G.deck[nextPlayer][1] = -1;
 		
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 1 in deck, 0 in discard & Action card:\n");
 
@@ -51,7 +52,7 @@ int main()
 	G.deck[nextPlayer][0] = estate;
 	G.deck[nextPlayer][1] = -1;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 1 in deck, 0 in discard & Victory card:\n");
 
@@ -73,7 +74,7 @@ int main()
 	G.deck[nextPlayer][0] = copper;
 	G.deck[nextPlayer][1] = -1;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 1 in deck, 0 in discard & Treasure card:\n");
 
@@ -94,7 +95,7 @@ int main()
 	G.deckCount[nextPlayer] = 0;
 	G.discard[nextPlayer][0] = feast;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 1 in discard & Action card:\n");
 
@@ -115,7 +116,7 @@ int main()
 	G.deckCount[nextPlayer] = 0;
 	G.discard[nextPlayer][0] = estate;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 1 in discard & Victory card:\n");
 
@@ -136,7 +137,7 @@ int main()
 	G.deckCount[nextPlayer] = 0;
 	G.discard[nextPlayer][0] = copper;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 1 in discard & Treasure card:\n");
 
@@ -158,7 +159,7 @@ int main()
 	G.discard[nextPlayer][0] = feast;
 	G.discard[nextPlayer][1] = feast;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & same Action card:\n");
 
@@ -180,7 +181,7 @@ int main()
 	G.discard[nextPlayer][0] = estate;
 	G.discard[nextPlayer][1] = estate;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & same Victory card:\n");
 
@@ -202,7 +203,7 @@ int main()
 	G.discard[nextPlayer][0] = copper;
 	G.discard[nextPlayer][1] = copper;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & same Treasure card:\n");
 
@@ -224,7 +225,7 @@ int main()
 	G.discard[nextPlayer][0] = feast;
 	G.discard[nextPlayer][1] = mine;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & different Action card:\n");
 
@@ -246,7 +247,7 @@ int main()
 	G.discard[nextPlayer][0] = estate;
 	G.discard[nextPlayer][1] = province;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & different Victory card:\n");
 
@@ -268,7 +269,7 @@ int main()
 	G.discard[nextPlayer][0] = copper;
 	G.discard[nextPlayer][1] = gold;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & different Treasure card:\n");
 
@@ -291,7 +292,7 @@ int main()
 	G.discard[nextPlayer][1] = estate;
 	handCount = G.handCount[currentPlayer];
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & Action/Victory card:\n");
 
@@ -324,7 +325,7 @@ int main()
 	numActions = G.numActions;
 	numCoins = G.coins;
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & Action/Treasure card:\n");
 
@@ -356,7 +357,7 @@ int main()
 	G.discard[nextPlayer][1] = gold;
 	handCount = G.handCount[currentPlayer];
 
-	r = tributeEffect(currentPlayer, nextPlayer, &G);
+	r = tributeCard(&G, currentPlayer);
 
 	printf("\nTesting 0 in deck, 2 in discard & Treasure/Victory card:\n");
 

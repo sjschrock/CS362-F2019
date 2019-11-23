@@ -4,6 +4,7 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
 	int estateCount = 1;
 
 
-	printf("Testing baronEffect():\n");
+	printf("Testing baronCard():\n");
 	//loop to test estate card in each hand position
 	for(i = 0; i < hand; i++)
 	{
@@ -38,7 +39,7 @@ int main()
 		discardCount = G.discardCount[currentPlayer];
 		handCount = G.handCount[currentPlayer];
 		
-		baronEffect(1, &G, currentPlayer); // test the function with choice 1 and an estate card in the hand
+		baronCard(1, &G, currentPlayer); // test the function with choice 1 and an estate card in the hand
 
 		printf("\nTesting Estate in hand position %d:\n", i);
 		
@@ -108,7 +109,7 @@ int main()
 	G.supplyCount[estate] = estateCount;
 	discardCount = G.discardCount[currentPlayer];
 	
-	baronEffect(1, &G, currentPlayer); // test the function with choice 1 and no estate card in the hand
+	baronCard(1, &G, currentPlayer); // test the function with choice 1 and no estate card in the hand
 	
 	printf("\nTesting gainEstate() with estate in supply:\n");
 
@@ -148,7 +149,7 @@ int main()
 	G.supplyCount[estate] = 0; // set estate supply to 0
 	discardCount = G.discardCount[currentPlayer];
 
-	baronEffect(1, &G, currentPlayer);
+	baronCard(1, &G, currentPlayer);
 
 	if (G.discardCount[currentPlayer] == discardCount) // verify discard count unchanged
 	{
@@ -167,7 +168,7 @@ int main()
 	discardCount = G.discardCount[currentPlayer];
 	G.supplyCount[estate] = estateCount;
 
-	baronEffect(0, &G, currentPlayer); // test the function with choice 0
+	baronCard(0, &G, currentPlayer); // test the function with choice 0
 
 	printf("Testing gainEstate() with estate in supply:\n");
 
@@ -207,7 +208,7 @@ int main()
 	G.supplyCount[estate] = 0; // set estate supply to 0
 	discardCount = G.discardCount[currentPlayer];
 
-	baronEffect(0, &G, currentPlayer);
+	baronCard(0, &G, currentPlayer);
 
 	if (G.discardCount[currentPlayer] == discardCount) // verify discard count unchanged
 	{

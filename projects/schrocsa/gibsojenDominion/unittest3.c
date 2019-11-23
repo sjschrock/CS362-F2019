@@ -4,6 +4,7 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -20,12 +21,12 @@ int main()
 	int nextPlayer = 1;
 
 
-	printf("\n\nTesting ambassadorEffect():\n");
+	printf("\n\nTesting ambassadorCard():\n");
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
 	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
 		
-	r = ambassadorEffect(0, 1, 3, currentPlayer, &G); // test the function with choice2 too large
+	r = ambassadorCard(1, 3, &G, 0, currentPlayer); // test the function with choice2 too large
 
 	if (r == -1)
 	{
@@ -39,7 +40,7 @@ int main()
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
 	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
 
-	r = ambassadorEffect(0, 1, -1, currentPlayer, &G); // test the function with choice2 too large
+	r = ambassadorCard(1, -1, &G, 0, currentPlayer); // test the function with choice2 too small
 
 	if (r == -1)
 	{
@@ -53,7 +54,7 @@ int main()
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
 	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
 
-	r = ambassadorEffect(0, 0, 1, currentPlayer, &G); // test the function with choice1 = handPos
+	r = ambassadorCard(0, 1, &G, 0, currentPlayer); // test the function with choice1 = handPos
 
 	if(r == -1)
 	{
@@ -71,7 +72,7 @@ int main()
 	G.hand[currentPlayer][0] = ambassador;
 	G.hand[currentPlayer][3] = estate;
 
-	r = ambassadorEffect(0, 3, 2, currentPlayer, &G); // test the function with j too small
+	r = ambassadorCard(3, 2, &G, 0, currentPlayer); // test the function with j too small
 
 	if (r == -1)
 	{
@@ -94,7 +95,7 @@ int main()
 	handCount = G.handCount[currentPlayer];
 	discardCount2 = G.discardCount[nextPlayer];
 	
-	ambassadorEffect(0, 1, 2, currentPlayer, &G); // test the function discarding 2 cards
+	ambassadorCard(1, 2, &G, 0, currentPlayer); // test the function discarding 2 cards
 
 	printf("\nTesting Ambassador discarding 2 cards:\n");
 		
@@ -139,7 +140,7 @@ int main()
 	handCount = G.handCount[currentPlayer];
 	discardCount2 = G.discardCount[nextPlayer];
 
-	ambassadorEffect(0, 1, 1, currentPlayer, &G); // test the function discarding 1 card
+	ambassadorCard(1, 1, &G, 0, currentPlayer); // test the function discarding 1 card
 
 	if (G.supplyCount[copper] == 0) // verify supply count unchanged
 	{

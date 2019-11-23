@@ -5,6 +5,7 @@
 #include "rngs.h"
 #include "dominion_helpers.h"
 #include <time.h>
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -67,7 +68,7 @@ int main()
 			printf("No Estate in hand\n\n");
 		}
 
-		baronEffect(choice, &G, currentPlayer); // test the function 
+		baronCard(choice, &G, currentPlayer); // test the function 
 
 		if (G.numBuys == preNumBuys + 1) // verify +1 added to number of buys
 		{

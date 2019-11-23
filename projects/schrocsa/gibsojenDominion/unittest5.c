@@ -4,6 +4,7 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -16,7 +17,7 @@ int main()
 	int hand = 5;
 	int coppers[hand];
 
-	printf("\n\nTesting mineEffect():\n");
+	printf("\n\nTesting mineCard():\n");
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
 	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
@@ -26,7 +27,7 @@ int main()
 	G.hand[currentPlayer][0] = mine;
 	G.hand[currentPlayer][1] = estate;
 		
-	r = mineEffect(1, gold, &G, 0, currentPlayer);
+	r = mineCard(1, gold, &G, 0, currentPlayer);
 
 	if(r == -1)
 	{
@@ -45,7 +46,7 @@ int main()
 	G.hand[currentPlayer][0] = mine;
 	G.hand[currentPlayer][1] = estate;
 
-	r = mineEffect(2, estate, &G, 0, currentPlayer);
+	r = mineCard(2, estate, &G, 0, currentPlayer);
 
 	if (r == -1)
 	{
@@ -64,7 +65,7 @@ int main()
 	G.hand[currentPlayer][0] = mine;
 	G.hand[currentPlayer][1] = estate;
 
-	r = mineEffect(2, gold, &G, 0, currentPlayer);
+	r = mineCard(2, gold, &G, 0, currentPlayer);
 
 	if (r == -1)
 	{
@@ -82,7 +83,7 @@ int main()
 	memcpy(G.hand[currentPlayer], coppers, sizeof(int) * hand);
 	G.hand[currentPlayer][0] = mine;
 
-	mineEffect(1, silver, &G, 0, currentPlayer);
+	mineCard(1, silver, &G, 0, currentPlayer);
 
 	if (G.hand[currentPlayer][4] == 5)
 	{
@@ -102,7 +103,7 @@ int main()
 	G.hand[currentPlayer][0] = mine;
 	G.hand[currentPlayer][1] = silver;
 
-	mineEffect(1, gold, &G, 0, currentPlayer);
+	mineCard(1, gold, &G, 0, currentPlayer);
 
 	if (G.hand[currentPlayer][4] == 6)
 	{

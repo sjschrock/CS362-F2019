@@ -5,6 +5,7 @@
 #include "rngs.h"
 #include "dominion_helpers.h"
 #include <time.h>
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -95,7 +96,7 @@ int main()
 			printf("%d, %d\n", G.deck[nextPlayer][deckCount - 1], G.deck[nextPlayer][deckCount - 2]);
 		}
 		
-		tributeEffect(currentPlayer, nextPlayer, &G); // test the function
+		tributeCard(&G, currentPlayer); // test the function
 
 		if(deckCount == 0)
 		{

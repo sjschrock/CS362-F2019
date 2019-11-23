@@ -116,7 +116,7 @@ int minionCard (int choice1, int choice2, struct gameState *state, int handPos, 
             }
 
             //other players discard hand and redraw if hand size > 4
-            for (i = 0; i <= state->numPlayers; i++)  // introduced bug from < to <=
+            for (i = 0; i < state->numPlayers; i++)  // introduced bug from < to <=
             {
                 if (i != currentPlayer)
                 {

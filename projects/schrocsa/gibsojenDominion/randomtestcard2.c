@@ -5,6 +5,7 @@
 #include "rngs.h"
 #include "dominion_helpers.h"
 #include <time.h>
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -71,7 +72,7 @@ int main()
 
 		printf("Minion in hand at %d: choice1 = %d, choice2 = %d, next player's hand count = %d\n\n", j, choice1, choice2, G.handCount[nextPlayer]);
 
-		minionEffect(j, currentPlayer, &G, choice1, choice2); // test the function
+		minionCard(choice1, choice2, &G, j, currentPlayer); // test the function
 
 		if (G.numActions == preActions + 1) // verify +1 added to number of actions
 		{

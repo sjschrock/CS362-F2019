@@ -4,6 +4,7 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include "kingdom_cards.h"
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
 	int nextPlayer;
 
 
-	printf("\n\nTesting minionEffect():\n");
+	printf("\n\nTesting minionCard():\n");
 	//loop to test minion card in each hand position
 	for(i = 0; i < hand; i++)
 	{
@@ -38,7 +39,7 @@ int main()
 		preCoins = G.coins;
 		handCount = G.handCount[currentPlayer];
 		
-		minionEffect(i, currentPlayer, &G, 1, 0); // test the function with choice 1
+		minionCard(1, 0, &G, i, currentPlayer); // test the function with choice 1
 
 		printf("\nTesting Minion in hand position %d:\n", i);
 		
@@ -76,7 +77,7 @@ int main()
 		G.handCount[nextPlayer] = hand;
 		discardCount2 = G.discardCount[nextPlayer];
 
-		minionEffect(i, currentPlayer, &G, 0, 1); // test the function with choice 2
+		minionCard(0, 1, &G, i, currentPlayer); // test the function with choice 2
 
 		if(G.discardCount[currentPlayer] == discardCount + handCount) // verify hand is discarded
 		{
@@ -128,7 +129,7 @@ int main()
 		G.handCount[nextPlayer] = 4;
 		discardCount2 = G.discardCount[nextPlayer];
 
-		minionEffect(i, currentPlayer, &G, 0, 1); // test the function with choice 2
+		minionCard(0, 1, &G, i, currentPlayer); // test the function with choice 2
 
 		if(G.discardCount[nextPlayer] == discardCount2)
 		{

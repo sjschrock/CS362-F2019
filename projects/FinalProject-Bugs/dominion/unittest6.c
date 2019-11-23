@@ -25,9 +25,10 @@ int main() {
    int choice1 = mine;  // if province, it would be too expensive and create an infinite loop
    
    // reset coins
-   G.coins = 0;   
+   G.coins = 0;
 
    // begin testing bug 6 - feast
+   // trade for mine card with 0 coins
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #1 FOR BUG 6\n\n");
 
@@ -36,6 +37,8 @@ int main() {
 
    // call function
    cardEffect(feast, choice1, 0, 0, &testGame, 0, 0);
+
+   printf("Call cardEffect() function with feast case and choice1 is mine.\n\n");
 
    if (G.coins == testGame.coins) {
       printf("OK:  the number of coins remains the same.\n");

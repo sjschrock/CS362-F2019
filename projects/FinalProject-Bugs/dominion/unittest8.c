@@ -25,6 +25,8 @@ int main() {
 
 
    // begin testing bug 8 - bonus coins
+   // steward function uses bonus coins
+   // showing the difference when cardEffect() is directly called, and when using playCard()
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #1 FOR BUG 8\n\n");
 
@@ -42,6 +44,8 @@ int main() {
 
    cardEffect(steward, choice1, 0, 0, &testGame, 0, 0);
 
+   printf("Using cardEffect() function to call steward case.\n\n");
+   
    if (G.coins + 2 == testGame.coins) {
       printf("OK:  the number of coins increased by 2.\n");
       printf("Number of coins before play = %d\n", G.coins);
@@ -63,6 +67,8 @@ int main() {
 
 
    // begin testing bug 8 - bonus coins
+   // steward function uses bonus coins
+   // showing the difference when cardEffect() is directly called, and when using playCard()
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #2 FOR BUG 8\n\n");
 
@@ -79,6 +85,8 @@ int main() {
    memcpy(&testGame, &G, sizeof(struct gameState));
 
    playCard(0, choice1, 0, 0, &testGame);
+
+   printf("Using playCard() function to call cardEffect with steward case.\n\n");
 
    if (G.coins + 2 == testGame.coins) {
       printf("OK:  the number of coins increased by 2.\n");

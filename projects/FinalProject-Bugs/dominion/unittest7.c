@@ -24,6 +24,7 @@ int main() {
    int nextPlayer = 1;
 
    // begin testing bug 7 - tribute
+   // reveal two different treasure cards
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #1 FOR BUG 7\n\n");
 
@@ -48,6 +49,8 @@ int main() {
    memcpy(&testGame, &G, sizeof(struct gameState));
 
    cardEffect(tribute, 0, 0, 0, &testGame, 0, 0);
+
+   printf("Two different treasure cards were revealed.\n\n");
 
    if (G.coins + 4 == testGame.coins) {
       printf("OK:  the number of coins increased by 4, 2 for each treasure card.\n");
@@ -94,6 +97,7 @@ int main() {
 
 
 
+   // reveal two different action cards
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #2 FOR BUG 7\n\n");
 
@@ -116,6 +120,8 @@ int main() {
 
    cardEffect(tribute, 0, 0, 0, &testGame, 0, 0);
 
+   printf("Two different action cards were revealed.\n\n");
+   
    if (G.coins == testGame.coins) {
       printf("OK:  the number of coins remained the same.\n");
       printf("Number of coins before play = %d\n", G.coins);
@@ -161,6 +167,7 @@ int main() {
 
 
 
+   // reveal two different victory cards
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #3 FOR BUG 7\n\n");
 
@@ -182,6 +189,8 @@ int main() {
    memcpy(&testGame, &G, sizeof(struct gameState));
 
    cardEffect(tribute, 0, 0, 0, &testGame, 0, 0);
+
+   printf("Two different victory cards were revealed.\n\n");
 
    if (G.coins == testGame.coins) {
       printf("OK:  the number of coins remained the same.\n");

@@ -23,6 +23,7 @@ int main() {
    int currPlayer = 0;
 
    // begin testing bug 5 - scoreFor
+   // test when there are less discards than cards in deck
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #1 FOR BUG 5\n\n");
 
@@ -46,7 +47,8 @@ int main() {
    G.discardCount[currPlayer] = 3;
 
    // total of 38 points
-   
+  
+   printf("For this test, there are %d discards and %d cards in the deck.\n\n", G.discardCount[currPlayer], G.deckCount[currPlayer]); 
 
    int finalScore;
    finalScore = scoreFor(currPlayer, &G);
@@ -67,6 +69,7 @@ int main() {
 
 
    // begin testing bug 5 - scoreFor
+   // test when there are less in deck that discards
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #2 FOR BUG 5\n\n");
 
@@ -89,6 +92,8 @@ int main() {
    G.discardCount[currPlayer] = 5;
 
    // total of 41 points
+  
+   printf("For this test, there are %d discards and %d cards in the deck.\n\n", G.discardCount[currPlayer], G.deckCount[currPlayer]); 
 
    finalScore = scoreFor(currPlayer, &G);
   

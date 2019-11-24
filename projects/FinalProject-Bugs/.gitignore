@@ -1,0 +1,13 @@
+# Compiled files
+*.gcda
+*.gcno
+*.gcov
+unittest1
+unittest2
+unittest3
+unittest5
+unittest6
+unittest7
+unittest8
+unittest9
+unittest10

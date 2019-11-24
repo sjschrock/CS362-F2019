@@ -16,7 +16,7 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
-runtests: testDrawCard 
+runtests: testDrawCard
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
@@ -25,12 +25,28 @@ runtests: testDrawCard
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
-all: playdom player 
+all: playdom player
 
 unittestresults: dominion.o
 
 	echo "RESULTS OF ALL UNIT TESTS:" > unittestresults.out
-	echo "***********************************************" >> unittestresults.out
+	echo "***********************************************\n" >> unittestresults.out
+
+	echo "Result for running Unit 1 tests, unittest1.c:" >> unittestresults.out
+	gcc -o unittest1 -g unittest1.c dominion.o rngs.o $(CFLAGS)
+	./unittest1 >> unittestresults.out
+
+	echo "Result for running Unit 2 tests, unittest2.c:" >> unittestresults.out
+	gcc -o unittest2 -g unittest2.c dominion.o rngs.o $(CFLAGS)
+	./unittest2 >> unittestresults.out
+
+	echo "Result for running Unit 3 tests, unittest3.c:" >> unittestresults.out
+	gcc -o unittest3 -g unittest3.c dominion.o rngs.o $(CFLAGS)
+	./unittest3 >> unittestresults.out
+
+	echo "Result for running Unit 4 tests, unittest4.c:" >> unittestresults.out
+	gcc -o unittest4 -g unittest4.c dominion.o rngs.o $(CFLAGS)
+	./unittest4 >> unittestresults.out
 
 	echo "Result for running Unit 5 tests, unittest5.c:" >> unittestresults.out
 	gcc -o unittest5 -g unittest5.c dominion.o rngs.o $(CFLAGS)
@@ -56,10 +72,10 @@ unittestresults: dominion.o
 	echo "Result for running Unit 10 tests, unittest10.c:" >> unittestresults.out
 	gcc -o unittest10 -g unittest10.c dominion.o rngs.o $(CFLAGS)
 	./unittest10 >> unittestresults.out
-	
+
 	gcov dominion.c -f -b >> unittestresults.out
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe 
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
 	rm -rf *.dSYM
-	rm -f unittest5 unittest6 unittest7 unittest8 unittest9 unittest10
+	rm -f unittest1 unittest2 unittest3 unittest4 unittest5 unittest6 unittest7 unittest8 unittest9 unittest10

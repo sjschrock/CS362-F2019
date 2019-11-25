@@ -7,57 +7,75 @@
 
 int main() {
 
-   // set players and seed
-   int numOfPlayers = 2;
-   int seed = 232;
-
-   // declare game state
-   struct gameState G;
-
-   // set card array
-   int k[10] = {adventurer, baron, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute};
+   int cards[4] = {estate, duchy, province, great_hall };
+   int currPlayer = 0;		
+   int finalScore = 0;			// track the score from function call
+   struct gameState G;			// declare game state
+   int i;
+   int k[10] = { adventurer, baron, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute };  // card array
+   int localScore = 0;			// track score locally
+   int numOfCurses = 10;		// number of curses to add to hands
+   int numOfPlayers = 2;		// set players
+   int cardScores[4] = { 1, 3, 6, 1 };	// scores of cards
+   int seed = 232;			// random seed
 
    // initialize game
    initializeGame(numOfPlayers, k, seed, &G);
+   
 
-   int currPlayer = 0;
 
    // begin testing bug 5 - scoreFor
    // test when there are less discards than cards in deck
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #1 FOR BUG 5\n\n");
 
-   G.hand[currPlayer][0] = estate; // 1 point
-   G.hand[currPlayer][1] = estate; // 1 point
-   G.hand[currPlayer][2] = estate; // 1 point
-   G.hand[currPlayer][3] = estate; // 1 point
-   G.hand[currPlayer][4] = estate; // 1 point
-   G.handCount[currPlayer] = 5;
 
-   G.deck[currPlayer][0] = duchy; // 3 points
-   G.deck[currPlayer][1] = duchy; // 3 points
-   G.deck[currPlayer][2] = duchy; // 3 points
-   G.deck[currPlayer][3] = duchy; // 3 points
-   G.deck[currPlayer][4] = duchy; // 3 points
-   G.deckCount[currPlayer] = 5;
+   G.handCount[currPlayer] = 0;
+   G.deckCount[currPlayer] = 0;
+   G.discardCount[currPlayer] = 0;
 
-   G.discard[currPlayer][0] = province; // 6 points
-   G.discard[currPlayer][1] = province; // 6 points
-   G.discard[currPlayer][2] = province; // 6 points
-   G.discardCount[currPlayer] = 3;
+   // add 10 cursses to deck, hand, and discards
+   for (i = 0; i < numOfCurses; i++) {
+      G.hand[currPlayer][i] = curse;
+      G.deck[currPlayer][i] = curse;
+      G.discard[currPlayer][i] = curse;
 
-   // total of 38 points
-  
+      G.handCount[currPlayer]++;
+      G.deckCount[currPlayer]++;
+      G.discardCount[currPlayer]++;
+      localScore += -1 * 3;
+   }
+
+   // add cards from card array
+   for (int i = 0; i < 4; i++) {
+      G.hand[currPlayer][i + numOfCurses] = cards[i];
+      G.deck[currPlayer][i + numOfCurses] = cards[i];
+      G.discard[currPlayer][i + numOfCurses] = cards[i];
+
+      G.handCount[currPlayer]++;
+      G.deckCount[currPlayer]++;
+      G.discardCount[currPlayer]++;
+      localScore += cardScores[i] * 3;
+   }
+
+   // add gardens to deck and hand
+   G.hand[currPlayer][G.handCount[currPlayer]] = gardens;
+   G.deck[currPlayer][G.deckCount[currPlayer]] = gardens;
+
+   G.handCount[currPlayer]++;
+   G.deckCount[currPlayer]++;
+
+   localScore += (fullDeckCount(currPlayer, 0, &G) / 10) * 2;
+ 
    printf("For this test, there are %d discards and %d cards in the deck.\n\n", G.discardCount[currPlayer], G.deckCount[currPlayer]); 
 
-   int finalScore;
    finalScore = scoreFor(currPlayer, &G);
   
-   if (finalScore == 38) {
-      printf("OK:  Final score is 38.\n");
+   if (finalScore == localScore) {
+      printf("OK:  Final score is %d.\n", localScore);
    }
    else {
-      printf("ERROR:  Final score is %d, but it should be 38.\n", finalScore);
+      printf("ERROR:  Final score is %d, but it should be %d.\n", finalScore, localScore);
    }
 
    printf("\n");
@@ -73,35 +91,53 @@ int main() {
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #2 FOR BUG 5\n\n");
 
-   G.hand[currPlayer][0] = estate; // 1 point
-   G.hand[currPlayer][1] = estate; // 1 point
-   G.hand[currPlayer][2] = estate; // 1 point
-   G.hand[currPlayer][3] = estate; // 1 point
-   G.hand[currPlayer][4] = estate; // 1 point
-   G.handCount[currPlayer] = 5;
 
-   G.deck[currPlayer][0] = duchy; // 3 points
-   G.deck[currPlayer][1] = duchy; // 3 points
-   G.deckCount[currPlayer] = 2;
+   G.handCount[currPlayer] = 0;
+   G.deckCount[currPlayer] = 0;
+   G.discardCount[currPlayer] = 0;
 
-   G.discard[currPlayer][0] = province; // 6 points
-   G.discard[currPlayer][1] = province; // 6 points
-   G.discard[currPlayer][2] = province; // 6 points
-   G.discard[currPlayer][3] = province; // 6 points
-   G.discard[currPlayer][4] = province; // 6 points
-   G.discardCount[currPlayer] = 5;
+   // add 10 cursses to deck, hand, and discards
+   for (i = 0; i < numOfCurses; i++) {
+      G.hand[currPlayer][i] = curse;
+      G.deck[currPlayer][i] = curse;
+      G.discard[currPlayer][i] = curse;
 
-   // total of 41 points
-  
+      G.handCount[currPlayer]++;
+      G.deckCount[currPlayer]++;
+      G.discardCount[currPlayer]++;
+      localScore += -1 * 3;
+   }
+
+   // add cards from card array
+   for (int i = 0; i < 4; i++) {
+      G.hand[currPlayer][i + numOfCurses] = cards[i];
+      G.deck[currPlayer][i + numOfCurses] = cards[i];
+      G.discard[currPlayer][i + numOfCurses] = cards[i];
+
+      G.handCount[currPlayer]++;
+      G.deckCount[currPlayer]++;
+      G.discardCount[currPlayer]++;
+      localScore += cardScores[i] * 3;
+   }
+
+   // add gardens to discards and hand
+   G.hand[currPlayer][G.handCount[currPlayer]] = gardens;
+   G.discard[currPlayer][G.deckCount[currPlayer]] = gardens;
+
+   G.handCount[currPlayer]++;
+   G.discardCount[currPlayer]++;
+
+   localScore += (fullDeckCount(currPlayer, 0, &G) / 10) * 2;
+ 
    printf("For this test, there are %d discards and %d cards in the deck.\n\n", G.discardCount[currPlayer], G.deckCount[currPlayer]); 
 
    finalScore = scoreFor(currPlayer, &G);
-  
-   if (finalScore == 41) {
-      printf("OK:  Final score is 41.\n");
+
+   if (finalScore == localScore) {
+      printf("OK:  Final score is %d.\n", localScore);
    }
    else {
-      printf("ERROR:  Final score is %d, but it should be 41.\n", finalScore);
+      printf("ERROR:  Final score is %d, but it should be %d.\n", finalScore, localScore);
    }
 
    printf("\n");

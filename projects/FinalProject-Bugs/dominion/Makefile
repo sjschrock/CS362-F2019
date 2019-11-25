@@ -52,4 +52,6 @@ unittestresults: dominion.o
 	gcov dominion.c -f -b >> unittestresults.out
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest5 unittest6 unittest7 unittest8
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe 
+	rm -rf *.dSYM
+	rm -f unittest5 unittest6 unittest7 unittest8

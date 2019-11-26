@@ -27,5 +27,31 @@ player: player.c interface.o
 
 all: playdom player 
 
+unittestresults: dominion.o
+
+	echo "RESULTS OF ALL UNIT TESTS:" > unittestresults.out
+	echo "***********************************************" >> unittestresults.out
+
+	echo "Result for running Unit 5 tests, unittest5.c:" >> unittestresults.out
+	gcc -o unittest5 -g unittest5.c dominion.o rngs.o $(CFLAGS)
+	./unittest5 >> unittestresults.out
+
+
+	echo "Result for running Unit 6 tests, unittest6.c:" >> unittestresults.out
+	gcc -o unittest6 -g unittest6.c dominion.o rngs.o $(CFLAGS)
+	./unittest6 >> unittestresults.out
+
+	echo "Result for running Unit 7 tests, unittest7.c:" >> unittestresults.out
+	gcc -o unittest7 -g unittest7.c dominion.o rngs.o $(CFLAGS)
+	./unittest7 >> unittestresults.out
+
+	echo "Result for running Unit 8 tests, unittest8.c:" >> unittestresults.out
+	gcc -o unittest8 -g unittest8.c dominion.o rngs.o $(CFLAGS)
+	./unittest8 >> unittestresults.out
+	
+	gcov dominion.c -f -b >> unittestresults.out
+
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe 
+	rm -rf *.dSYM
+	rm -f unittest5 unittest6 unittest7 unittest8

@@ -7,167 +7,95 @@
 
 int main()
 {
-	struct gameState G;
-	int r;
-	int discardCount2;
-	int handCount;
-	int seed = 1000;
-	int numPlayers = 2;
-	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
-	int hand = 5;
-	int coppers[hand];
+	int i, r;
 	int currentPlayer = 0;
+	int discardCount;
+	int handCount;
+	int k[10] = { ambassador, council_room, feast, gardens, mine, remodel, smithy, village, treasure_map, great_hall };
+	int maps;
 	int nextPlayer = 1;
-
-
-	printf("\n\nTesting ambassadorEffect():\n");
-
-	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
-		
-	r = ambassadorEffect(0, 1, 3, currentPlayer, &G); // test the function with choice2 too large
-
-	if (r == -1)
-	{
-		printf("Function fails if choice2 is too large: PASS\n");
-	}
-	else
-	{
-		printf("Function fails if choice2 is too large: FAIL\n");
-	}
+	int numPlayers = 2;
+	int seed = 1000;
+	struct gameState G;
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
+	initializeGame(numPlayers, k, seed, &G); // initialize a new game
 
-	r = ambassadorEffect(0, 1, -1, currentPlayer, &G); // test the function with choice2 too large
+	//begin testing bug 10
 
-	if (r == -1)
-	{
-		printf("Function fails if choice2 is too small: PASS\n");
-	}
-	else
-	{
-		printf("Function fails if choice2 is too small: FAIL\n");
-	}
+	printf("--------------------------------------------------------------------------\n");
+   	printf("BEGIN TEST #1 FOR BUG 10\n\n");
 
-	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
-
-	r = ambassadorEffect(0, 0, 1, currentPlayer, &G); // test the function with choice1 = handPos
-
-	if(r == -1)
-	{
-		printf("Function fails if choice1 is invalid: PASS\n");
-	}
-	else
-	{
-		printf("Function fails if choice1 is invalid: FAIL\n");
-	}
-
-	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
-	G.handCount[currentPlayer] = hand;
-	memcpy(G.hand[currentPlayer], coppers, sizeof(int) * hand);
-	G.hand[currentPlayer][0] = ambassador;
-	G.hand[currentPlayer][3] = estate;
-
-	r = ambassadorEffect(0, 3, 2, currentPlayer, &G); // test the function with j too small
-
-	if (r == -1)
-	{
-		printf("Function fails if too few to discard: PASS\n");
-	}
-	else
-	{
-		printf("Function fails if too few to discard: FAIL\n");
-	}
-
-	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
-	//set variables
-	G.handCount[currentPlayer] = hand;
-	memcpy(G.hand[currentPlayer], coppers, sizeof(int) * hand);
-	G.hand[currentPlayer][0] = ambassador;
-	G.hand[currentPlayer][3] = estate;
-	G.hand[currentPlayer][4] = estate;
-	G.supplyCount[copper] = 0;
-	handCount = G.handCount[currentPlayer];
-	discardCount2 = G.discardCount[nextPlayer];
 	
-	ambassadorEffect(0, 1, 2, currentPlayer, &G); // test the function discarding 2 cards
-
-	printf("\nTesting Ambassador discarding 2 cards:\n");
-		
-	if(G.supplyCount[copper] == 1) // verify +1 added to supply count
+	//set the variables for the gameState
+	G.handCount[currentPlayer] = 5;
+	for(i = 1; i < G.handCount[currentPlayer]; i++)
 	{
-		printf("Supply Count +1 = PASS\n");
+		G.hand[currentPlayer][i] = treasure_map;
 	}
-	else
-	{
-		printf("Supply Count +1 = FAIL\n");
-	}
-
-	if(G.handCount[currentPlayer] == handCount - 2) 
-	{
-		printf("Hand count -2 = PASS\n");
-	}
-	else 
-	{
-		printf("Hand count -2 = FAIL\n");
-	}
-
-	if (G.discardCount[nextPlayer] == discardCount2 + 1)
-	{
-		printf("Next player gained card = PASS\n");
-	}
-	else
-	{
-		printf("Next player gained card = FAIL\n");
-	}
-
-	printf("\nTesting Ambassador discarding 1 card:\n");
-
-	memset(&G, 23, sizeof(struct gameState)); //clear the game state
-	r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
-												 //set variables
-	G.handCount[currentPlayer] = hand;
-	memcpy(G.hand[currentPlayer], coppers, sizeof(int) * hand);
 	G.hand[currentPlayer][0] = ambassador;
-	G.hand[currentPlayer][3] = estate;
-	G.hand[currentPlayer][4] = estate;
-	G.supplyCount[copper] = 0;
+	G.whoseTurn = 0;
+
+	//set up the variables for the assertions
 	handCount = G.handCount[currentPlayer];
-	discardCount2 = G.discardCount[nextPlayer];
+	maps = G.supplyCount[treasure_map];
+	discardCount = G.discardCount[nextPlayer];
+	
+	printf("For this test there are 4 treasure map cards and 1 ambassador card in hand\n");
 
-	ambassadorEffect(0, 1, 1, currentPlayer, &G); // test the function discarding 1 card
+	//call the function with the bug	
+	r = cardEffect(ambassador, 1, 2, 0, &G, 0, 0);
 
-	if (G.supplyCount[copper] == 0) // verify supply count unchanged
+	//run tests
+	if(G.handCount[currentPlayer] == handCount - 2)
 	{
-		printf("Supply Count unchanged = PASS\n");
+		printf("OK:	handCount is -2\n");
 	}
 	else
 	{
-		printf("Supply Count unchanged = FAIL\n");
+		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount - 2);
 	}
 
-	if (G.handCount[currentPlayer] == handCount - 1)
+	if(G.supplyCount[treasure_map] == maps - 1)
 	{
-		printf("Hand count -2 = PASS\n");
+		printf("OK:	treasure map supply count -1\n");
 	}
 	else
 	{
-		printf("Hand count -2 = FAIL\n");
+		printf("ERROR:	treasure_map supply count is %d, but it should be %d\n", G.supplyCount[treasure_map], maps - 1);
 	}
 
-	if (G.discardCount[nextPlayer] == discardCount2 + 1)
+	if(G.discardCount[nextPlayer] == discardCount + 1)
 	{
-		printf("Next player gained card = PASS\n");
+		printf("OK:	nextPlayer discardCount +1\n");
 	}
 	else
 	{
-		printf("Next player gained card = FAIL\n");
+		printf("ERROR:	nextPlayer discardCount is %d, but it should be %d\n", G.discardCount[nextPlayer], discardCount + 1);
 	}
 
+	if(G.discard[nextPlayer][G.discardCount[nextPlayer] - 1] == treasure_map)
+	{
+		printf("OK:	treasure map is last card in discard\n");
+	}
+	else
+	{
+		printf("ERROR:	last card in discard is %d, but it should be %d\n", G.discard[nextPlayer][G.discardCount[nextPlayer] - 1], treasure_map);
+	}
+
+	if(r == 0)
+	{
+		printf("OK:	return value is 0\n");
+	}
+	else
+	{
+		printf("ERROR:	return value is %d, but it should be %d\n", r, 0);
+	}
+
+	printf("\n");
+	printf("END TEST #1 FOR BUG 10\n");
+	printf("--------------------------------------------------------------------------\n");
+	printf("\n");
 
 	printf("\n\n");
 

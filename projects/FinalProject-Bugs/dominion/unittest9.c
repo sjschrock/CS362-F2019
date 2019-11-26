@@ -71,6 +71,7 @@ int main()
 		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount);
 	}
 
+	printf("\n");
 	printf("END TEST #1 FOR BUG 9\n");
 	printf("--------------------------------------------------------------------------\n");
 	printf("\n");
@@ -129,6 +130,7 @@ int main()
 		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount);
 	}
 
+	printf("\n");
 	printf("END TEST #2 FOR BUG 9\n");
 	printf("--------------------------------------------------------------------------\n");
 	printf("\n");
@@ -187,6 +189,7 @@ int main()
 		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount);
 	}
 
+	printf("\n");
 	printf("END TEST #3 FOR BUG 9\n");
 	printf("--------------------------------------------------------------------------\n");
 	printf("\n");

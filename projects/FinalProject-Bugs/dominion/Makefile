@@ -52,10 +52,14 @@ unittestresults: dominion.o
 	echo "Result for running Unit 9 tests, unittest9.c:" >> unittestresults.out
 	gcc -o unittest9 -g unittest9.c dominion.o rngs.o $(CFLAGS)
 	./unittest9 >> unittestresults.out
+
+	echo "Result for running Unit 10 tests, unittest10.c:" >> unittestresults.out
+	gcc -o unittest10 -g unittest10.c dominion.o rngs.o $(CFLAGS)
+	./unittest10 >> unittestresults.out
 	
 	gcov dominion.c -f -b >> unittestresults.out
 
 clean:
 	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe 
 	rm -rf *.dSYM
-	rm -f unittest5 unittest6 unittest7 unittest8 unittest9
+	rm -f unittest5 unittest6 unittest7 unittest8 unittest9 unittest10

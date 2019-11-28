@@ -4,9 +4,12 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include <time.h>
 
 int main()
 {
+	srand(time(NULL));
+
 	int currentPlayer = 0;
 	int handCount;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
@@ -14,7 +17,7 @@ int main()
 	int numCoins;
 	int nextPlayer = 1;
 	int numPlayers = 2;
-	int seed = 1000;
+	int seed = rand() % 100 + 1;
 	struct gameState G;
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
@@ -193,8 +196,6 @@ int main()
 	printf("END TEST #3 FOR BUG 9\n");
 	printf("--------------------------------------------------------------------------\n");
 	printf("\n");
-
-	printf("\n\n");
 
 	return 0;
 }

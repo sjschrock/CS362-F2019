@@ -4,10 +4,13 @@
 #include <string.h>
 #include "rngs.h"
 #include "dominion_helpers.h"
+#include <time.h>
 
 int main()
 {
-	int i, r;
+	srand(time(NULL));
+
+	int i;
 	int currentPlayer = 0;
 	int discardCount;
 	int handCount;
@@ -15,7 +18,8 @@ int main()
 	int maps;
 	int nextPlayer = 1;
 	int numPlayers = 2;
-	int seed = 1000;
+	int result;
+	int seed = rand() % 100 + 1;
 	struct gameState G;
 
 	memset(&G, 23, sizeof(struct gameState)); //clear the game state
@@ -44,7 +48,7 @@ int main()
 	printf("For this test there are 4 treasure map cards and 1 ambassador card in hand\n");
 
 	//call the function with the bug	
-	r = cardEffect(ambassador, 1, 2, 0, &G, 0, 0);
+	result = cardEffect(ambassador, 1, 2, 0, &G, 0, 0);
 
 	//run tests
 	if(G.handCount[currentPlayer] == handCount - 2)
@@ -83,21 +87,19 @@ int main()
 		printf("ERROR:	last card in discard is %d, but it should be %d\n", G.discard[nextPlayer][G.discardCount[nextPlayer] - 1], treasure_map);
 	}
 
-	if(r == 0)
+	if(result == 0)
 	{
 		printf("OK:	return value is 0\n");
 	}
 	else
 	{
-		printf("ERROR:	return value is %d, but it should be %d\n", r, 0);
+		printf("ERROR:	return value is %d, but it should be %d\n", result, 0);
 	}
 
 	printf("\n");
 	printf("END TEST #1 FOR BUG 10\n");
 	printf("--------------------------------------------------------------------------\n");
 	printf("\n");
-
-	printf("\n\n");
 
 	return 0;
 }

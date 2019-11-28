@@ -4,21 +4,24 @@
 #include "rngs.h"
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main() {
-   
+   srand(time(NULL));
+
    int choice1 = mine;  // if province, it would be too expensive and create an infinite loop
    int currPlayer = 0;
    struct gameState G, testGame;	// declare game state
    int k[10] = {adventurer, baron, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute};   // set card array
    int numOfPlayers = 2;		// set number of players
-   int seed = 232;			// random seed
+   int seed = rand() % 100 + 1;         // random seed
 
+   // clear the game state
+   memset(&G, 23, sizeof(struct gameState));
 
    // initialize game
    initializeGame(numOfPlayers, k, seed, &G);
 
-   
 
    // begin testing bug 6 - feast
    // trade for mine card with 0 coins

@@ -4,8 +4,10 @@
 #include "rngs.h"
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main() {
+   srand(time(NULL));
 
    int cards[4] = {estate, duchy, province, great_hall };
    int currPlayer = 0;		
@@ -17,12 +19,14 @@ int main() {
    int numOfCurses = 10;		// number of curses to add to hands
    int numOfPlayers = 2;		// set players
    int cardScores[4] = { 1, 3, 6, 1 };	// scores of cards
-   int seed = 232;			// random seed
+   int seed = rand() % 100 + 1;         // random seed
 
+   // clear the game state
+   memset(&G, 23, sizeof(struct gameState));
+  
    // initialize game
    initializeGame(numOfPlayers, k, seed, &G);
    
-
 
    // begin testing bug 5 - scoreFor
    // test when there are less discards than cards in deck

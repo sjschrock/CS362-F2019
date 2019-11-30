@@ -4,8 +4,10 @@
 #include "rngs.h"
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main() {
+   srand(time(NULL));
 
    int choice1 = 2;
    int currPlayer = 0;
@@ -13,8 +15,10 @@ int main() {
    int k[10] = {adventurer, baron, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute};  // set card array
    int numOfPlayers = 2;		// set number of players
    int playerHand[5] = { steward, gold, gold, gold, gold };
-   int seed = 232;			// random seed
+   int seed = rand() % 100 + 1;         // random seed
 		
+   // clear the game state
+   memset(&G, 23, sizeof(struct gameState));
 
    // initialize game
    initializeGame(numOfPlayers, k, seed, &G);

@@ -95,6 +95,7 @@ int main() {
    printf("--------------------------------------------------------------------------\n");
    printf("BEGIN TEST #2 FOR BUG 5\n\n");
 
+   localScore = 0;
 
    G.handCount[currPlayer] = 0;
    G.deckCount[currPlayer] = 0;

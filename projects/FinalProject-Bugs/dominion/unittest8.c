@@ -79,7 +79,7 @@ int main() {
 
    printf("Using playCard() function to call cardEffect with steward case.\n\n");
 
-   if (G.coins + 2 == testGame.coins) {
+   if (G.coins + 14 == testGame.coins) {
       printf("OK:  the number of coins increased by 2.\n");
    }
    else {
@@ -88,7 +88,7 @@ int main() {
 
    printf("Number of coins before play = %d\n", G.coins);
    printf("Number of coins after play = %d\n", testGame.coins);
-   printf("Number of coins expected = %d\n\n", G.coins + 2);
+   printf("Number of coins expected = %d\n\n", G.coins + 14);
 
 
 

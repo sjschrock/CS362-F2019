@@ -14,7 +14,7 @@ int main() {
   int choice2 = gold;
   int currPlayer = 0;
   int i;
-  int initGameCopper = 2;
+  int initGameCopper = 3;
   int initGameGold = 0;
   // set card array
   int k[10] = {adventurer, baron, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute};

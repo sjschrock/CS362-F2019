@@ -51,22 +51,22 @@ int main()
 	result = cardEffect(ambassador, 1, 2, 0, &G, 0, 0);
 
 	//run tests
-	if(G.handCount[currentPlayer] == handCount - 2)
+	if(G.handCount[currentPlayer] == handCount - 3)
 	{
-		printf("OK:	handCount is -2\n");
+		printf("OK:	handCount is -3\n");
 	}
 	else
 	{
-		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount - 2);
+		printf("ERROR:	handCount is %d, but it should be %d\n", G.handCount[currentPlayer], handCount - 3);
 	}
 
-	if(G.supplyCount[treasure_map] == maps - 1)
+	if(G.supplyCount[treasure_map] == maps + 1)
 	{
 		printf("OK:	treasure map supply count -1\n");
 	}
 	else
 	{
-		printf("ERROR:	treasure_map supply count is %d, but it should be %d\n", G.supplyCount[treasure_map], maps - 1);
+		printf("ERROR:	treasure_map supply count is %d, but it should be %d\n", G.supplyCount[treasure_map], maps + 1);
 	}
 
 	if(G.discardCount[nextPlayer] == discardCount + 1)

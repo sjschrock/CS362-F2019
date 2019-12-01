@@ -99,6 +99,7 @@ int main() {
    G.handCount[currPlayer] = 0;
    G.deckCount[currPlayer] = 0;
    G.discardCount[currPlayer] = 0;
+   localScore = 0;
 
    // add 10 cursses to deck, hand, and discards
    for (i = 0; i < numOfCurses; i++) {

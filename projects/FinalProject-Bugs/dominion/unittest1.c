@@ -10,7 +10,7 @@ int main() {
   srand(time(NULL));
 
   // set players and seed
-  int choice1 = 3;
+  int choice1 = 0;
   int choice2 = gold;
   int currPlayer = 0;
   // set card array

@@ -808,12 +808,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case mine:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-        if (choice2 > treasure_map || choice2 < curse)
+        if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) < getCost(choice2) )
+        if (choice2 > treasure_map || choice2 < curse)
         {
             return -1;
         }

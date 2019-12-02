@@ -229,26 +229,26 @@ int main() {
 
   printf("Call cardEffect() function with mine case and choice1 is %d and choice 2 is %d.\n\n", choice1, choice2);
 
-  if (initGameCopper != testGameCopper)
+  if (initGameCopper == testGameCopper)
   {
-    printf("OK:  the number of copper changes.\n");
+    printf("OK:  the number of copper remains the same.\n");
   }
   else
   {
-    printf("ERROR:  the number of copper remains the same.\n");
+    printf("ERROR:  the number of copper changes.\n");
   }
 
   printf("Number of copper before play = %d\n", initGameCopper);
   printf("Number of copper after play = %d\n", testGameCopper);
   printf("Number of copper expected = %d\n\n", testGameCopper);
 
-  if (initGameGold != testGameGold)
+  if (initGameGold == testGameGold)
   {
-    printf("OK:  the number of gold changes.\n");
+    printf("OK:  the number of gold remains the same.\n");
   }
   else
   {
-    printf("ERROR:  the number of gold remains the same.\n");
+    printf("ERROR:  the number of gold changes.\n");
   }
 
   printf("Number of gold before play = %d\n", initGameGold);

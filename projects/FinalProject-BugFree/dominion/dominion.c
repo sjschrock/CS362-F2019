@@ -818,6 +818,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return -1;
         }
 
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) < getCost(choice2) )
+        {
+            return -1;
+        }
+
         gainCard(choice2, state, 2, currentPlayer);
 
         //discard card from hand

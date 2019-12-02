@@ -107,6 +107,7 @@ int main() {
 
   printf("\n");
   printf("END TEST #1 FOR BUG 2\n");
+  printf("--------------------------------------------------------------------------\n");
   printf("\n");
 
   // begin testing bug 2 - mine gainCard
@@ -184,8 +185,11 @@ int main() {
 
   printf("Number of silver before play = %d\n", initGameSilver);
   printf("Number of silver after play = %d\n", testGameSilver);
-  printf("Number of silver expected = %d\n", testGameSilver);
-  printf("END TEST #2 FOR BUG 2\n\n");
+  printf("Number of silver expected = %d\n\n", testGameSilver);
+
+  printf("END TEST #2 FOR BUG 2\n");
+  printf("--------------------------------------------------------------------------\n");
+  printf("\n");
 
   // begin testing bug 2 - mine gainCard
   // discard copper for gold
@@ -262,7 +266,7 @@ int main() {
 
   printf("Number of silver before play = %d\n", initGameSilver);
   printf("Number of silver after play = %d\n", testGameSilver);
-  printf("Number of silver expected = %d\n", testGameSilver);
+  printf("Number of silver expected = %d\n\n", testGameSilver);
 
   printf("END TEST #3 FOR BUG 2\n\n");
   printf("--------------------------------------------------------------------------\n");
